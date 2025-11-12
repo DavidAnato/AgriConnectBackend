@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Variables d’environnement
+.env
+.env.*
+.env.local
+.envrc
+
+# Logs et traces
+*.log
+*.pid
+*.seed
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# Tests & couverture
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+
+# IDE/Editors
+.vscode/
+.idea/
+
+# OS spécifiques
+.DS_Store
+Thumbs.db

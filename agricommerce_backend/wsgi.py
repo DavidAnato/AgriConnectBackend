@@ -15,6 +15,20 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'agricommerce_backend.settings')
 
 application = get_wsgi_application()
 
+# Create superuser if it does not exist
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    if not User.objects.filter(username=os.environ['DJANGO_SUPERUSER_USERNAME']).exists():
+        User.objects.create_superuser(
+            username=os.environ['DJANGO_SUPERUSER_USERNAME'],
+            email=os.environ['DJANGO_SUPERUSER_EMAIL'],
+            password=os.environ['DJANGO_SUPERUSER_PASSWORD']
+        )
+except Exception:
+    # Never prevent the app from starting if superuser creation fails
+    pass
+
 # Keepalive interne: active via ENABLE_KEEPALIVE=true
 if os.getenv('ENABLE_KEEPALIVE', 'false').lower() == 'true':
     try:
