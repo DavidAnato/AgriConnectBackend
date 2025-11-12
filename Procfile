@@ -1,1 +1,1 @@
-web: gunicorn agricommerce_backend.wsgi
+web: gunicorn agricommerce_backend.wsgi:application
