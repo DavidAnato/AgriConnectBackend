@@ -158,7 +158,7 @@ AUTH_USER_MODEL = "app_authentication.User"
 # INTERNATIONALIZATION
 # ==============================================================================
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-bj'
 
 TIME_ZONE = 'UTC'
 
