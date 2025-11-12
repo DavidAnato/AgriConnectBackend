@@ -172,6 +172,6 @@ class UserAdmin(BaseUserAdmin):
 
 
 # Configuration CSS personnalisée pour l'admin
-admin.site.site_header = "Administration AgriCommerce"
-admin.site.site_title = "Admin AgriCommerce"
+admin.site.site_header = "Administration AgriConnect"
+admin.site.site_title = "Admin AgriConnect"
 admin.site.index_title = "Tableau de bord"
