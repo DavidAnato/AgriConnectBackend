@@ -6,3 +6,7 @@ drf-yasg
 python-decouple
 Pillow
 django-filter
+gunicorn
+dj-database-url
+whitenoise
+psycopg2-binary

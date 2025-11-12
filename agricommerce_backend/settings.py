@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,12 @@ SECRET_KEY = 'django-insecure-1)!r9@qr*@i$!$jc2%q0#_7pj*&wm3dg5m(doo#j%sjd-u9mg#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=lambda v: [s.strip() for s in v.split(',')])
+# Autorisations hôtes (par défaut: localhost et sous-domaines Render)
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='*,.onrender.com',
+    cast=lambda v: [s.strip() for s in v.split(',')]
+)
 
 ROOT_URLCONF = 'agricommerce_backend.urls'
 
@@ -86,6 +92,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,9 +100,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# Accept both with and without trailing slash for API without redirecting POST
-APPEND_SLASH = False
 
 # ==============================================================================
 # TEMPLATES CONFIGURATION
@@ -121,10 +125,10 @@ TEMPLATES = [
 # ==============================================================================
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{(BASE_DIR / 'db.sqlite3').as_posix()}",
+        conn_max_age=600,
+    )
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -169,6 +173,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = []
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

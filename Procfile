@@ -1,0 +1,1 @@
+web: gunicorn agricommerce_backend.wsgi
