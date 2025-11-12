@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 """
 
 import os
+import logging
 
 from django.core.wsgi import get_wsgi_application
 
@@ -19,14 +20,18 @@ application = get_wsgi_application()
 try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
-    if not User.objects.filter(username=os.environ['DJANGO_SUPERUSER_USERNAME']).exists():
+    if not User.objects.filter(username="admin").exists():
         User.objects.create_superuser(
-            username=os.environ['DJANGO_SUPERUSER_USERNAME'],
-            email=os.environ['DJANGO_SUPERUSER_EMAIL'],
-            password=os.environ['DJANGO_SUPERUSER_PASSWORD']
+            username="admin",
+            email="admin@agricommerce.com",
+            password="admin1234"
         )
-except Exception:
+        logging.info("Superuser 'admin' created successfully.")
+    else:
+        logging.info("Superuser 'admin' already exists.")
+except Exception as e:
     # Never prevent the app from starting if superuser creation fails
+    logging.warning("Failed to create superuser: %s", e)
     pass
 
 # Keepalive interne: active via ENABLE_KEEPALIVE=true
