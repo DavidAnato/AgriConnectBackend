@@ -3,10 +3,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination
-from .models import Product
-from .serializers import ProductSerializer
+from django.db.models import Count
+from .models import Product, Category
+from .serializers import ProductSerializer, CategorySerializer
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 12
@@ -21,8 +23,29 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ["unit_type", "is_published", "location_commune", "location_village", "producer"]
-    search_fields = ["name", "short_description", "long_description", "location_village", "location_commune"]
+    
+    class ProductFilter(filters.FilterSet):
+        category_name = filters.CharFilter(field_name="category__name", lookup_expr="iexact")
+
+        class Meta:
+            model = Product
+            fields = {
+                "unit_type": ["exact"],
+                "is_published": ["exact"],
+                "location_commune": ["exact"],
+                "location_village": ["exact"],
+                "producer": ["exact"],
+            }
+
+    filterset_class = ProductFilter
+    search_fields = [
+        "name",
+        "short_description",
+        "long_description",
+        "location_village",
+        "location_commune",
+        "category__name",
+    ]
     ordering_fields = ["created_at", "updated_at", "unit_price", "quantity_available", "name"]
     ordering = ["-created_at"]
     pagination_class = StandardResultsSetPagination
@@ -67,3 +90,13 @@ class ProductViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all().annotate(product_count=Count("products")).order_by("name")
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["name"]
+    ordering_fields = ["name", "created_at"]
+    ordering = ["name"]
