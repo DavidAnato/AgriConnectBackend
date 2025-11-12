@@ -4,8 +4,14 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.pagination import PageNumberPagination
 from .models import Product
 from .serializers import ProductSerializer
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 12
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
 class IsProducerOrAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -19,6 +25,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ["name", "short_description", "long_description", "location_village", "location_commune"]
     ordering_fields = ["created_at", "updated_at", "unit_price", "quantity_available", "name"]
     ordering = ["-created_at"]
+    pagination_class = StandardResultsSetPagination
 
     def perform_create(self, serializer):
         if not self.request.user or not self.request.user.is_authenticated:
