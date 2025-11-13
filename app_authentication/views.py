@@ -23,6 +23,7 @@ from .serializers import (
 from utils.functions import send_activation_email, generate_otp_code, send_password_reset_email
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 class BaseLoginView:
