@@ -3,6 +3,11 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 import random
 from decouple import config
+from django.conf import settings
+from decouple import config
+
+# Initialisation du logger
+logger = logging.getLogger(__name__)
 
 def send_password_reset_email(email, otp_code):
     """
@@ -95,6 +100,15 @@ def send_activation_email(email, otp_code):
     # Construction de l'URL d'activation
     activation_url = f"{FRONTEND_URL}/active-email?otp_code={otp_code}&email={email}"
     
+        # Log des informations importantes
+    logger.info("Préparation de l'email d'activation")
+    logger.debug(f"FRONTEND_URL utilisé : {FRONTEND_URL}")
+    logger.debug(f"Adresse email du destinataire : {email}")
+    logger.debug(f"Code OTP : {otp_code}")
+    logger.debug(f"URL d'activation : {activation_url}")
+    logger.debug(f"EMAIL_HOST_USER (expéditeur) : {settings.EMAIL_HOST_USER}")
+    logger.debug(f"EMAIL_BACKEND utilisé : {settings.EMAIL_BACKEND}")
+
     html_content = f"""
     <!DOCTYPE html>
     <html lang="fr">
