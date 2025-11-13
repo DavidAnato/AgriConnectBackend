@@ -182,12 +182,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # EMAIL CONFIGURATION
 # ==============================================================================
 
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = config('EMAIL_HOST', default="smtp.gmail.com")
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER', default="")
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="")
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = config('EMAIL_HOST', default="smtp.gmail.com")
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default="")
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="")
+EMAIL_HOST_USER = "david1anato@gmail.com"
+EMAIL_HOST_PASSWORD = "qypaxhrqfixwuocn"
 
 # ==============================================================================
 # CORS HEADERS CONFIGURATION

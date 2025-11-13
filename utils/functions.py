@@ -11,14 +11,14 @@ def send_password_reset_email(email, otp_code):
     :param email: Adresse email du destinataire.
     :param otp_code: Code OTP pour la réinitialisation du mot de passe.
     """
-    subject = "Password Reset Request"
+    subject = "Demande de réinitialisation de mot de passe"
     html_content = f"""
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Password Reset Request</title>
+        <title>Réinitialisation de mot de passe</title>
         <style>
             body {{
                 background-color: #f3f4f6;
@@ -41,7 +41,7 @@ def send_password_reset_email(email, otp_code):
             .btn {{
                 display: inline-block;
                 padding: 10px 20px;
-                background-color: #007bff;
+                background-color: #16a34a;
                 color: #fff;
                 text-decoration: none;
                 border-radius: 3px;
@@ -52,20 +52,20 @@ def send_password_reset_email(email, otp_code):
                 font-size: 2rem;
                 font-weight: 600;
                 margin-top: 1.3rem;
-                color: #007bff;
+                color: #16a34a;
                 letter-spacing: 2px;
             }}
         </style>
     </head>
     <body>
         <div class="container">
-            <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Password Reset Request</h2>
-            <p>Hello,</p>
-            <p>We received a request to reset your password. Your OTP code is:</p>
+            <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Demande de réinitialisation de mot de passe</h2>
+            <p>Bonjour,</p>
+            <p>Nous avons reçu une demande de réinitialisation de votre mot de passe. Votre code OTP est :</p>
             <p class="otp-code">{otp_code}</p>
-            <p style="margin-top: 20px; color: #666;">This code will expire in 3 hours.</p>
-            <p style="margin-top: 20px;">If you did not request this, you can safely ignore this email.</p>
-            <p>Regards,<br>The ConnectMe Team</p>
+            <p style="margin-top: 20px; color: #666;">Ce code expirera dans 3 heures.</p>
+            <p style="margin-top: 20px;">Si vous n'avez pas fait cette demande, vous pouvez ignorer cet email.</p>
+            <p>Cordialement,<br>L'équipe AgriConnect</p>
         </div>
     </body>
     </html>
@@ -89,8 +89,8 @@ def send_activation_email(email, otp_code):
     :param otp_code: Code OTP pour l'activation du compte
     :raises Exception: En cas d'échec d'envoi de l'email
     """
-    FRONTEND_URL = config('FRONTEND_URL', default="")
-    subject = "🏊‍♀️ Activez votre compte SwimConnect"
+    FRONTEND_URL = config('FRONTEND_URL', default="http://agriconnect.surge.sh/")
+    subject = "Activez votre compte AgriConnect"
     
     # Construction de l'URL d'activation
     activation_url = f"{FRONTEND_URL}/active-email?otp_code={otp_code}&email={email}"
@@ -101,7 +101,7 @@ def send_activation_email(email, otp_code):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Activation de compte SwimConnect</title>
+        <title>Activation de compte AgriConnect</title>
         <style>
             * {{
                 margin: 0;
@@ -126,7 +126,7 @@ def send_activation_email(email, otp_code):
             }}
             
             .header {{
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
                 padding: 40px 30px;
                 text-align: center;
                 color: white;
@@ -162,7 +162,7 @@ def send_activation_email(email, otp_code):
                 padding: 30px;
                 text-align: center;
                 margin: 30px 0;
-                border-left: 4px solid #667eea;
+                border-left: 4px solid #16a34a;
             }}
             
             .otp-label {{
@@ -177,7 +177,7 @@ def send_activation_email(email, otp_code):
             .otp-code {{
                 font-size: 32px;
                 font-weight: 700;
-                color: #667eea;
+                color: #16a34a;
                 letter-spacing: 4px;
                 font-family: 'Courier New', monospace;
                 background-color: white;
@@ -190,7 +190,7 @@ def send_activation_email(email, otp_code):
             
             .activation-button {{
                 display: inline-block;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
                 color: white;
                 text-decoration: none;
                 padding: 15px 35px;
@@ -198,13 +198,13 @@ def send_activation_email(email, otp_code):
                 font-weight: 600;
                 font-size: 16px;
                 margin: 20px 0;
-                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
                 transition: all 0.3s ease;
             }}
             
             .activation-button:hover {{
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+                box-shadow: 0 6px 20px rgba(22, 163, 74, 0.6);
             }}
             
             .expiry-notice {{
@@ -265,7 +265,7 @@ def send_activation_email(email, otp_code):
             }}
             
             .brand {{
-                color: #667eea;
+                color: #16a34a;
                 font-weight: 700;
                 font-size: 16px;
             }}
@@ -297,13 +297,13 @@ def send_activation_email(email, otp_code):
     <body>
         <div class="email-container">
             <div class="header">
-                <h1>🏊‍♀️ SwimConnect</h1>
-                <div class="subtitle">Votre plateforme de natation</div>
+                <h1>AgriConnect</h1>
+                <div class="subtitle">Votre plateforme agricole</div>
             </div>
             
             <div class="content">
                 <div class="welcome-text">
-                    <strong>Bienvenue dans la communauté SwimConnect !</strong><br>
+                    <strong>Bienvenue dans la communauté AgriConnect !</strong><br>
                     Nous sommes ravis de vous accueillir parmi nous.
                 </div>
                 
@@ -345,7 +345,7 @@ def send_activation_email(email, otp_code):
                 </div>
                 
                 <div class="brand">
-                    L'équipe SwimConnect 🌊
+                    L'équipe AgriConnect 🌱
                 </div>
                 
                 <div class="support-info">
@@ -360,9 +360,9 @@ def send_activation_email(email, otp_code):
     
     # Version texte pour les clients email qui ne supportent pas le HTML
     text_content = f"""
-    SwimConnect - Activation de compte
+    AgriConnect - Activation de compte
     
-    Bienvenue dans la communauté SwimConnect !
+    Bienvenue dans la communauté AgriConnect !
     
     Votre code d'activation : {otp_code}
     
@@ -376,7 +376,7 @@ def send_activation_email(email, otp_code):
     Si vous n'avez pas créé de compte, veuillez ignorer cet email.
     
     Cordialement,
-    L'équipe SwimConnect
+    L'équipe AgriConnect
     """
     
     try:
@@ -410,7 +410,7 @@ def send_whatsapp_message(phone_number, otp_code):
     # TODO: Implémenter l'envoi de message WhatsApp
     # Vous pouvez utiliser des services comme Twilio, WhatsApp Business API, etc.
     
-    message = f"Your OTP code is: {otp_code}. This code will expire in 3 hours."
+    message = f"Votre code OTP est : {otp_code}. Ce code expirera dans 3 heures."
     
     # Exemple avec Twilio (vous devez installer twilio et configurer les credentials)
     # from twilio.rest import Client
@@ -432,7 +432,7 @@ def send_sms_message(phone_number, otp_code):
     :param phone_number: Numéro de téléphone du destinataire.
     :param otp_code: Code OTP à envoyer.
     """
-    message = f"Your OTP code is: {otp_code}. This code will expire in 3 hours."
+    message = f"Votre code OTP est : {otp_code}. Ce code expirera dans 3 heures."
     
     # TODO: Implémenter l'envoi de SMS
     # Exemple avec Twilio
