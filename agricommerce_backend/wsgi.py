@@ -23,7 +23,7 @@ try:
     User = get_user_model()
 
     # On vérifie selon le champ principal
-    admin_email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
+    admin_email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@agriconnect.com')
 
     if not User.objects.filter(email=admin_email).exists():
         User.objects.create_superuser(
