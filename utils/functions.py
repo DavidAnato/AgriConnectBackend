@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 import random
-from decouple import config
+import logging
 from django.conf import settings
 from decouple import config
 
