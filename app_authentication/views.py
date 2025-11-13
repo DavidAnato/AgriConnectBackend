@@ -66,10 +66,7 @@ class RegisterView(generics.CreateAPIView):
 
 
         logger.info("Préparation de l'email d'activation")
-        logger.debug(f"FRONTEND_URL utilisé : {FRONTEND_URL}")
-        logger.debug(f"Adresse email du destinataire : {email}")
-        logger.debug(f"Code OTP : {otp_code}")
-        logger.debug(f"URL d'activation : {activation_url}")
+
         logger.debug(f"EMAIL_HOST_USER (expéditeur) : {settings.EMAIL_HOST_USER}")
         logger.debug(f"EMAIL_BACKEND utilisé : {settings.EMAIL_BACKEND}")
         try:
